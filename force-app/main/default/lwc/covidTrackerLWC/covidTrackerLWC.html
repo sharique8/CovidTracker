@@ -30,14 +30,16 @@
         </div>
 
         <!--Title, SearchBar and ComboBox-->
-        <div class="background-navigator slds-p-around_large">
+        <div class="background-navigator slds-p-around_medium">
             <div class="box-container sld-m-top_large">
                 <div class="">
                     <div class="slds-text-heading_small">Covid Data Country-Wise</div>
                 </div>
                 <div class="slds-float_right">
-                    <button class="slds-button slds-button_neutral listBtn" data-name="LIST" type="submit" onclick={ViewHandler}>List</button>
-                    <button class="slds-button slds-button_neutral chartBtn" data-name="CHART" type="submit" onclick={ViewHandler}>Chart</button>
+                    <button class="slds-button slds-button_neutral listBtn" data-name="LIST" type="submit"
+                        onclick={ViewHandler}>List</button>
+                    <button class="slds-button slds-button_neutral chartBtn" data-name="CHART" type="submit"
+                        onclick={ViewHandler}>Chart</button>
                 </div>
             </div>
             <div>
@@ -53,11 +55,16 @@
             <!--List View = Badges + Table-->
             <template if:true={showListView}>
                 <div class="slds-m-around_small">
-                    <label for="country">Enter country Name</label>
-                    <lightning-input type="text" name="country" value={selectedCountryListView}>
+                    <label class="slds-text-heading_small">Enter Country</label>
+                    <lightning-input 
+                     type="text" 
+                     label="Enter Country to Search" 
+                     variant="label-hidden"
+                     onchange={countrychangeListHandler}>
                     </lightning-input>
+
                 </div>
-                <div>
+                <div class="slds-m-bottom_medium">
                     <lightning-badge label="Higher than Average Fatality" class="slds-badge_inverse"></lightning-badge>
                     <lightning-badge label="Higher than Average Recovery" class="slds-badge_inverse"></lightning-badge>
                     <lightning-badge label="Lower than Average Recovery" class="slds-badge_inverse"></lightning-badge>
@@ -65,6 +72,34 @@
                     <lightning-badge label="More Active than Recovered" class="slds-badge_inverse"></lightning-badge>
                     <lightning-badge label="More Recovered than Active" class="slds-badge_inverse"></lightning-badge>
                 </div>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Country Name</th>
+                            <th>Confirmed</th>
+                            <th>Active</th>
+                            <th>Recovered</th>
+                            <th>Deaths</th>
+                            <th>Fatality Rate</th>
+                            <th>Recovery Rate</th>
+
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <template for:each={filtertabledata} for:item="item">
+                            <tr key={item.Key}>
+                                <td>{item.CountryName}</td>
+                                <td>{item.Confirmed}</td>
+                                <td>{item.Active}</td>
+                                <td>{item.Recovered}</td>
+                                <td>{item.Deaths}</td>
+                                <td>{item.FatalityRate}</td>
+                                <td>{item.RecoveryRate}</td>
+                            </tr>
+                        </template>
+                    </tbody>
+                </table>
 
             </template>
         </div>

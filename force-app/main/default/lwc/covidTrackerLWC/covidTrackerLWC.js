@@ -13,9 +13,10 @@ export default class CovidTrackerLWC extends LightningElement {
        }
     countrySelectedInCombo;
     @track countryList;
-    @track showListView=true;;
+    @track showListView=true;
     @track selectedCountryListView;
     @track tabledata=[];
+    @track filtertabledata=[];
 
     connectedCallback()
     {
@@ -59,6 +60,7 @@ export default class CovidTrackerLWC extends LightningElement {
             this.aggregateobj.TotalRecovery = this.getRecoveryRate().toFixed(2)+'%';
             this.generateCountryList(mapcountryTocases);                                    //ComboBox DATA
             this.tabledata = this.prepareDataforTable(mapcountryTocases);                   //Table DATA
+            this.filtertabledata = this.tabledata;
             //console.log(JSON.stringify(this.tabledata));                                  convert Object to String to print JS Objects in console
             //console.log('Country By Cases :'+JSON.stringify(mapcountryTocases.China))
             //console.log('Aggregate Data '+JSON.stringify(this.aggregateobj));
@@ -89,6 +91,7 @@ export default class CovidTrackerLWC extends LightningElement {
         console.log(mapres.China.Confirmed);
         return Object.keys(mapres).map((ele,index) => {
             return {
+                Key:           "Unique_Region"+ele,
                 CountryName:   ele,
                 Confirmed:     mapres[ele].Confirmed,
                 Active:        mapres[ele].Active,                     //mapres.ele.Confirmed will not work bcoz ele is variable
@@ -101,6 +104,15 @@ export default class CovidTrackerLWC extends LightningElement {
     }
     handleCountryChange(event)
     {} 
+    countrychangeListHandler(event)
+    {
+        if(event.target.value){
+            this.filtertabledata = this.tabledata.filter(obj => (obj.CountryName.toLowerCase()).includes((event.target.value).toLowerCase()))
+        }
+        else{
+            this.filtertabledata = this.tabledata
+        }
+    }
     ViewHandler(event)
     {
         if(event.target.dataset.name == "LIST")
