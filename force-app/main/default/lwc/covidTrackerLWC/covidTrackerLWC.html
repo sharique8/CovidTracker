@@ -1,0 +1,72 @@
+<template>
+    <div class="container">
+        <header>COVID-19 Global Cases Tracker using LWC </header>
+        <!--Aggregation-->
+        <div class="slds-grid slds-gutters slds-gutters_small slds-wrap slds-m-top_medium slds-m-bottom_large space">
+            <div class="slds-col slds-p-around_small slds-m-around_small background-confirmed">
+                <div class="slds-text-align_center slds-text-color_inverse">Total Confirmed</div>
+                <div class="slds-text-align_center slds-text-color_inverse">{aggregateobj.TotalConfirmed}</div>
+            </div>
+            <div class="slds-col slds-p-around_small slds-m-around_small background-active">
+                <div class="slds-text-align_center slds-text-color_inverse">Total Active</div>
+                <div class="slds-text-align_center slds-text-color_inverse">{aggregateobj.TotalActive}</div>
+            </div>
+            <div class="slds-col slds-p-around_small slds-m-around_small background-recovered">
+                <div class="slds-text-align_center slds-text-color_inverse">Total Recovered</div>
+                <div class="slds-text-align_center slds-text-color_inverse">{aggregateobj.TotalRecovered}</div>
+            </div>
+            <div class="slds-col slds-p-around_small slds-m-around_small background-deaths">
+                <div class="slds-text-align_center slds-text-color_inverse"> Total Deaths</div>
+                <div class="slds-text-align_center slds-text-color_inverse">{aggregateobj.TotalDeaths}</div>
+            </div>
+            <div class="slds-col slds-p-around_small slds-m-around_small background-fatal">
+                <div class="slds-text-align_center slds-text-color_inverse">Fatality Rate</div>
+                <div class="slds-text-align_center slds-text-color_inverse">{aggregateobj.TotalFatality}</div>
+            </div>
+            <div class="slds-col slds-p-around_small slds-m-around_small background-recovery">
+                <div class="slds-text-align_center slds-text-color_inverse">Recovery Rate</div>
+                <div class="slds-text-align_center slds-text-color_inverse">{aggregateobj.TotalRecovery}</div>
+            </div>
+        </div>
+
+        <!--Title, SearchBar and ComboBox-->
+        <div class="background-navigator slds-p-around_large">
+            <div class="box-container sld-m-top_large">
+                <div class="">
+                    <div class="slds-text-heading_small">Covid Data Country-Wise</div>
+                </div>
+                <div class="slds-float_right">
+                    <button class="slds-button slds-button_neutral listBtn" data-name="LIST" type="submit" onclick={ViewHandler}>List</button>
+                    <button class="slds-button slds-button_neutral chartBtn" data-name="CHART" type="submit" onclick={ViewHandler}>Chart</button>
+                </div>
+            </div>
+            <div>
+                <template if:true={showListView}>
+                    <div class="slds-m-around_small">
+                        <lightning-combobox name="country" label="country" value={countrySelectedInCombo}
+                            placeholder="Select Your country" options={countryList} variant="label-hidden"
+                            onchange={handleCountryChange}>
+                        </lightning-combobox>
+                    </div>
+                </template>
+            </div>
+            <!--List View = Badges + Table-->
+            <template if:true={showListView}>
+                <div class="slds-m-around_small">
+                    <label for="country">Enter country Name</label>
+                    <lightning-input type="text" name="country" value={selectedCountryListView}>
+                    </lightning-input>
+                </div>
+                <div>
+                    <lightning-badge label="Higher than Average Fatality" class="slds-badge_inverse"></lightning-badge>
+                    <lightning-badge label="Higher than Average Recovery" class="slds-badge_inverse"></lightning-badge>
+                    <lightning-badge label="Lower than Average Recovery" class="slds-badge_inverse"></lightning-badge>
+                    <lightning-badge label="Lower than Average Fatality" class="slds-badge_inverse"></lightning-badge>
+                    <lightning-badge label="More Active than Recovered" class="slds-badge_inverse"></lightning-badge>
+                    <lightning-badge label="More Recovered than Active" class="slds-badge_inverse"></lightning-badge>
+                </div>
+
+            </template>
+        </div>
+    </div>
+</template>

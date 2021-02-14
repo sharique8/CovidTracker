@@ -1,0 +1,46 @@
+.container {
+    min-height: 100vh;
+    background:#fff;
+    color:#9d9d9d;
+    padding-bottom: 1rem;
+}
+header {                            /*without dot if you directly style your elements without use of classed*/
+    background-color: black;
+    text-align: center;
+    padding: 25px;
+    font-size: medium;
+}
+.space{
+    justify-content: space-between;
+}
+.background-navigator {
+    background-color: #0f4c81;
+}
+.background-confirmed {
+   background-color: #007bff;
+}
+.background-active {
+    background-color: #dd9105;
+ }
+ .background-recovered {
+    background-color: #28a745;
+ }
+ .background-deaths {
+    background-color: #dc3545;
+ }
+ .background-fatal {
+    background-color: #17a2b8;
+ }
+ .background-recovery {
+    background-color: #413b7f;
+ }
+ .box-container{
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    
+}
+.dynamicbuttoncss {
+    background-color:#007CBA;
+    color: white;
+}
